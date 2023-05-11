@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+    - echo INSTALLING NGINX
+    - sudo apt-get update
+    - sudo apt-get install nginx -y
+  pre_build:
+    commands:
+      - echo Nothing to do in the pre_build phase...
+  build:
+    commands:
+      - echo Build started on `date`
+      - cp index.html /var/www/html/
+      - cp appspec.yaml /var/www/html/
+      - cp buildspec.yaml /var/www/html/
+      - cp scripts/install_nginx.sh /var/www/html/
+      - cp scripts/start_nginx.sh /var/www/html/
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - /var/www/html/index.html
+    - /var/www/html/appspec.yaml
+    - /var/www/html/buildspec.yaml
+    - /var/www/html/install_nginx.sh
+    - /var/www/html/start_nginx.sh
